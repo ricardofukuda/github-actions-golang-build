@@ -11,17 +11,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       - name: Build
-        uses: docker/build-push-action@v6
-        with:
-          push: false
-          file: DockerfileTest
-          context: .
-          tags: app-test:latest
+        run: docker build -t app-test:latest -f DockerfileTest .
       - name: Run tests
         run: docker run --rm app-test:latest
   build:
@@ -30,10 +23,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       - name: Build
         uses: docker/build-push-action@v6
         with:
